@@ -1,0 +1,15 @@
+### Intellij ###
+.idea/
+target/
+*.iml
+
+### Java ###
+# Binaries #
+*.class
+*.jar
+*.exe
+
+# Package Files #
+*.zip
+*.tar.gz
+*.rar
