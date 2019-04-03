@@ -23,104 +23,77 @@ class TelloKt {
         socket.connect(ip, port)
         sendCommand("command")
     }
+    fun close() = socket.close()
 
     @Throws(IOException::class)
-    fun takeOff(): Boolean {
-        return isOK(sendCommand("takeoff"))
-    }
+    fun takeOff() = isOK(sendCommand("takeoff"))
 
     @Throws(IOException::class)
-    fun land(): Boolean {
-        return isOK(sendCommand("land"))
-    }
+    fun land() = isOK(sendCommand("land"))
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun up(z: Int): Boolean {
-        return isOK(sendCommand("up " + getDistance(z)))
-    }
+    fun up(z: Int) = isOK(sendCommand("up " + getDistance(z)))
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun down(z: Int): Boolean {
-        return isOK(sendCommand("down " + getDistance(z)))
-    }
+    fun down(z: Int) = isOK(sendCommand("down " + getDistance(z)))
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun left(x: Int): Boolean {
-        return isOK(sendCommand("left " + getDistance(x)))
-    }
+    fun left(x: Int) = isOK(sendCommand("left " + getDistance(x)))
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun right(x: Int): Boolean {
-        return isOK(sendCommand("right " + getDistance(x)))
-    }
+    fun right(x: Int) = isOK(sendCommand("right " + getDistance(x)))
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun forward(y: Int): Boolean {
-        return isOK(sendCommand("forward " + getDistance(y)))
-    }
+    fun forward(y: Int) = isOK(sendCommand("forward " + getDistance(y)))
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun back(y: Int): Boolean {
-        return isOK(sendCommand("back " + getDistance(y)))
-    }
+    fun back(y: Int) = isOK(sendCommand("back " + getDistance(y)))
 
     /**
      * Rotate clockwise. Limit: 1-3600°
      */
     @Throws(IOException::class)
-    fun cw(x: Int): Boolean {
-        return isOK(sendCommand("cw $x"))
-    }
+    fun cw(x: Int) = isOK(sendCommand("cw $x"))
 
     /**
      * Rotate counter-clockwise. Limit: 1-3600°
      */
     @Throws(IOException::class)
-    fun ccw(x: Int): Boolean {
-        return isOK(sendCommand("ccw $x"))
-    }
+    fun ccw(x: Int) = isOK(sendCommand("ccw $x"))
 
     /**
      * Flip x l = (left) r = (right) f = (forward) b = (back) bl = (back/left) rb = (back/right) fl = (front/left) fr = (front/right)
      */
     @Throws(IOException::class)
-    fun flip(direction: String): Boolean {
-        return isOK(sendCommand("flip $direction"))
-    }
+    fun flip(direction: String) = isOK(sendCommand("flip $direction"))
 
     /**
      * Limit: 1-100 cm/s
      */
     @Throws(IOException::class)
-    fun setSpeed(speed: Int): Boolean {
-        return isOK(sendCommand("speed $speed"))
-    }
+    fun setSpeed(speed: Int) = isOK(sendCommand("speed $speed"))
 
-    private fun getDistance(distance: Int): Int {
-        return if (!isImperial) distance else Math.round((distance.toFloat() * 2.54).toFloat())
-    }
+    private fun getDistance(distance: Int) = if (!isImperial) distance else Math.round((distance * 2.54).toFloat())
 
-    private fun isOK(strResult: String?): Boolean {
-        return strResult == "OK"
-    }
+    private fun isOK(strResult: String?) = strResult == "OK"
 
     @Throws(IOException::class)
     private fun sendCommand(strCommand: String): String {
@@ -141,9 +114,5 @@ class TelloKt {
 
         println("$strCommand: $ret")
         return ret
-    }
-
-    fun close() {
-        socket.close()
     }
 }
