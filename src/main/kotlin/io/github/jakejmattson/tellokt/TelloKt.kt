@@ -23,7 +23,7 @@ class TelloKt {
         socket.connect(ip, port)
         sendCommand("command")
     }
-    fun close() = socket.close()
+    fun disconnect() = socket.close()
 
     @Throws(IOException::class)
     fun takeOff() = isOK(sendCommand("takeoff"))
@@ -35,49 +35,49 @@ class TelloKt {
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun up(z: Int) = isOK(sendCommand("up " + getDistance(z)))
+    fun moveUp(z: Int) = isOK(sendCommand("up " + getDistance(z)))
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun down(z: Int) = isOK(sendCommand("down " + getDistance(z)))
+    fun moveDown(z: Int) = isOK(sendCommand("down " + getDistance(z)))
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun left(x: Int) = isOK(sendCommand("left " + getDistance(x)))
+    fun moveLeft(x: Int) = isOK(sendCommand("left " + getDistance(x)))
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun right(x: Int) = isOK(sendCommand("right " + getDistance(x)))
+    fun moveRight(x: Int) = isOK(sendCommand("right " + getDistance(x)))
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun forward(y: Int) = isOK(sendCommand("forward " + getDistance(y)))
+    fun moveForward(y: Int) = isOK(sendCommand("forward " + getDistance(y)))
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun back(y: Int) = isOK(sendCommand("back " + getDistance(y)))
+    fun moveBack(y: Int) = isOK(sendCommand("back " + getDistance(y)))
 
     /**
      * Rotate clockwise. Limit: 1-3600°
      */
     @Throws(IOException::class)
-    fun cw(x: Int) = isOK(sendCommand("cw $x"))
+    fun rotateClockwise(x: Int) = isOK(sendCommand("cw $x"))
 
     /**
      * Rotate counter-clockwise. Limit: 1-3600°
      */
     @Throws(IOException::class)
-    fun ccw(x: Int) = isOK(sendCommand("ccw $x"))
+    fun rotateCounterClockwise(x: Int) = isOK(sendCommand("ccw $x"))
 
     /**
      * Flip x l = (left) r = (right) f = (forward) b = (back) bl = (back/left) rb = (back/right) fl = (front/left) fr = (front/right)
@@ -96,7 +96,7 @@ class TelloKt {
     private fun isOK(strResult: String?) = strResult == "OK"
 
     @Throws(IOException::class)
-    private fun sendCommand(strCommand: String): String {
+    fun sendCommand(strCommand: String): String {
         if (strCommand.isEmpty())
             return "empty command"
 
