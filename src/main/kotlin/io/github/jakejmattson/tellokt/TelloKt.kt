@@ -4,7 +4,6 @@ import java.net.DatagramSocket
 import java.net.InetAddress
 
 class TelloKt {
-    private lateinit var ip: InetAddress
     private lateinit var socket: DatagramSocket
     var isImperial: Boolean = false
 
@@ -12,15 +11,9 @@ class TelloKt {
         get() = socket.isConnected
 
     @Throws(Exception::class)
-    fun connect() {
-        this.connect("192.168.10.1", 8889)
-    }
-
-    @Throws(Exception::class)
-    fun connect(strIP: String, port: Int) {
-        ip = InetAddress.getByName(strIP)
+    fun connect(strIP: String = "192.168.10.1", port: Int = 8889) {
         socket = DatagramSocket(port)
-        socket.connect(ip, port)
+        socket.connect(InetAddress.getByName(strIP), port)
         sendCommand("command")
     }
     fun disconnect() = socket.close()
@@ -31,51 +24,27 @@ class TelloKt {
     @Throws(IOException::class)
     fun land() = sendCommand("land")
 
-    /**
-     * Range: 20-500 cm
-     */
-    @Throws(IOException::class)
-    fun moveUp(z: Int) = move("up", z)
-
-    /**
-     * Range: 20-500 cm
-     */
-    @Throws(IOException::class)
-    fun moveDown(z: Int) = move("down", z)
-
-    /**
-     * Range: 20-500 cm
-     */
     @Throws(IOException::class)
     fun moveLeft(x: Int) = move("left", x)
 
-    /**
-     * Range: 20-500 cm
-     */
     @Throws(IOException::class)
     fun moveRight(x: Int) = move("right", x)
 
-    /**
-     * Range: 20-500 cm
-     */
     @Throws(IOException::class)
     fun moveForward(y: Int) = move("forward", y)
 
-    /**
-     * Range: 20-500 cm
-     */
     @Throws(IOException::class)
     fun moveBack(y: Int) = move("back", y)
 
-    /**
-     * Rotate clockwise. Limit: 1-3600°
-     */
+    @Throws(IOException::class)
+    fun moveUp(z: Int) = move("up", z)
+
+    @Throws(IOException::class)
+    fun moveDown(z: Int) = move("down", z)
+
     @Throws(IOException::class)
     fun rotateClockwise(x: Int) = rotate("cw", x)
 
-    /**
-     * Rotate counter-clockwise. Limit: 1-3600°
-     */
     @Throws(IOException::class)
     fun rotateCounterClockwise(x: Int) = rotate("ccw", x)
 
@@ -114,7 +83,7 @@ class TelloKt {
             return "disconnected"
 
         val sendData = strCommand.toByteArray()
-        val sendPacket = DatagramPacket(sendData, sendData.size, ip, socket.port)
+        val sendPacket = DatagramPacket(sendData, sendData.size, socket.inetAddress, socket.port)
         socket.send(sendPacket)
 
         val receiveData = ByteArray(1024)
