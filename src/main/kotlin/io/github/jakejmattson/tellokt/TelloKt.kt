@@ -26,74 +26,72 @@ class TelloKt {
     fun disconnect() = socket.close()
 
     @Throws(IOException::class)
-    fun takeOff() = isOK(sendCommand("takeoff"))
+    fun takeOff() = sendCommand("takeoff")
 
     @Throws(IOException::class)
-    fun land() = isOK(sendCommand("land"))
-
-    /**
-     * Range: 20-500 cm
-     */
-    @Throws(IOException::class)
-    fun moveUp(z: Int) = isOK(sendCommand("up " + getDistance(z)))
+    fun land() = sendCommand("land")
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun moveDown(z: Int) = isOK(sendCommand("down " + getDistance(z)))
+    fun moveUp(z: Int) = sendCommand("up " + getDistance(z))
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun moveLeft(x: Int) = isOK(sendCommand("left " + getDistance(x)))
+    fun moveDown(z: Int) = sendCommand("down " + getDistance(z))
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun moveRight(x: Int) = isOK(sendCommand("right " + getDistance(x)))
+    fun moveLeft(x: Int) = sendCommand("left " + getDistance(x))
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun moveForward(y: Int) = isOK(sendCommand("forward " + getDistance(y)))
+    fun moveRight(x: Int) = sendCommand("right " + getDistance(x))
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun moveBack(y: Int) = isOK(sendCommand("back " + getDistance(y)))
+    fun moveForward(y: Int) = sendCommand("forward " + getDistance(y))
+
+    /**
+     * Range: 20-500 cm
+     */
+    @Throws(IOException::class)
+    fun moveBack(y: Int) = sendCommand("back " + getDistance(y))
 
     /**
      * Rotate clockwise. Limit: 1-3600°
      */
     @Throws(IOException::class)
-    fun rotateClockwise(x: Int) = isOK(sendCommand("cw $x"))
+    fun rotateClockwise(x: Int) = sendCommand("cw $x")
 
     /**
      * Rotate counter-clockwise. Limit: 1-3600°
      */
     @Throws(IOException::class)
-    fun rotateCounterClockwise(x: Int) = isOK(sendCommand("ccw $x"))
+    fun rotateCounterClockwise(x: Int) = sendCommand("ccw $x")
 
     /**
      * Flip x l = (left) r = (right) f = (forward) b = (back) bl = (back/left) rb = (back/right) fl = (front/left) fr = (front/right)
      */
     @Throws(IOException::class)
-    fun flip(direction: String) = isOK(sendCommand("flip $direction"))
+    fun flip(direction: String) = sendCommand("flip $direction")
 
     /**
      * Limit: 1-100 cm/s
      */
     @Throws(IOException::class)
-    fun setSpeed(speed: Int) = isOK(sendCommand("speed $speed"))
+    fun setSpeed(speed: Int) = sendCommand("speed $speed")
 
     private fun getDistance(distance: Int) = if (!isImperial) distance else Math.round((distance * 2.54).toFloat())
-
-    private fun isOK(strResult: String?) = strResult == "OK"
 
     @Throws(IOException::class)
     fun sendCommand(strCommand: String): String {
