@@ -35,49 +35,49 @@ class TelloKt {
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun moveUp(z: Int) = sendCommand("up " + getDistance(z))
+    fun moveUp(z: Int) = move("up", z)
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun moveDown(z: Int) = sendCommand("down " + getDistance(z))
+    fun moveDown(z: Int) = move("down", z)
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun moveLeft(x: Int) = sendCommand("left " + getDistance(x))
+    fun moveLeft(x: Int) = move("left", x)
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun moveRight(x: Int) = sendCommand("right " + getDistance(x))
+    fun moveRight(x: Int) = move("right", x)
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun moveForward(y: Int) = sendCommand("forward " + getDistance(y))
+    fun moveForward(y: Int) = move("forward", y)
 
     /**
      * Range: 20-500 cm
      */
     @Throws(IOException::class)
-    fun moveBack(y: Int) = sendCommand("back " + getDistance(y))
+    fun moveBack(y: Int) = move("back", y)
 
     /**
      * Rotate clockwise. Limit: 1-3600°
      */
     @Throws(IOException::class)
-    fun rotateClockwise(x: Int) = sendCommand("cw $x")
+    fun rotateClockwise(x: Int) = rotate("cw", x)
 
     /**
      * Rotate counter-clockwise. Limit: 1-3600°
      */
     @Throws(IOException::class)
-    fun rotateCounterClockwise(x: Int) = sendCommand("ccw $x")
+    fun rotateCounterClockwise(x: Int) = rotate("ccw", x)
 
     /**
      * Flip x l = (left) r = (right) f = (forward) b = (back) bl = (back/left) rb = (back/right) fl = (front/left) fr = (front/right)
@@ -92,6 +92,18 @@ class TelloKt {
     fun setSpeed(speed: Int) = sendCommand("speed $speed")
 
     private fun getDistance(distance: Int) = if (!isImperial) distance else Math.round((distance * 2.54).toFloat())
+
+    private fun move(command: String, distance: Int) =
+        if (distance in 20..500)
+            sendCommand("$command ${getDistance(distance)}")
+        else
+            "Command argument not in range!"
+
+    private fun rotate(command: String, distance: Int) =
+        if (distance in 1..3600)
+            sendCommand("$command $distance")
+        else
+            "Command argument not in range!"
 
     @Throws(IOException::class)
     fun sendCommand(strCommand: String): String {
