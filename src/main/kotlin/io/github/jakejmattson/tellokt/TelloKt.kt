@@ -62,19 +62,13 @@ class TelloKt {
     @Throws(IOException::class)
     fun setSpeed(speed: Int) = sendCommand("speed $speed")
 
-    private fun getDistance(distance: Int) = if (!isImperial) distance else Math.round((distance * 2.54).toFloat())
+    private fun Int.toMetric() = if (!isImperial) this else Math.round((this * 2.54).toFloat())
 
-    private fun move(command: String, distance: Int) =
-        if (distance in movementRange)
-            sendCommand("$command ${getDistance(distance)}")
-        else
-            "Command argument not in range!"
+    private fun move(command: String, distance: Int) = validateAndSend(command, distance.toMetric(), movementRange)
+    private fun rotate(command: String, distance: Int) = validateAndSend(command, distance, rotationrange)
 
-    private fun rotate(command: String, distance: Int) =
-        if (distance in rotationrange)
-            sendCommand("$command $distance")
-        else
-            "Command argument not in range!"
+    private fun validateAndSend(command: String, distance: Int, range: IntRange) =
+        if (distance in range) sendCommand("$command $distance") else "Command argument not in range!"
 
     @Throws(IOException::class)
     fun sendCommand(strCommand: String): String {
