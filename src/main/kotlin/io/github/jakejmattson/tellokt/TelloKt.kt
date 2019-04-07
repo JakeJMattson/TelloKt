@@ -4,6 +4,11 @@ import java.net.DatagramSocket
 import java.net.InetAddress
 
 class TelloKt {
+    companion object {
+        val movementRange = 20..500
+        val rotationrange = 1..3600
+    }
+
     private lateinit var socket: DatagramSocket
     var isImperial: Boolean = false
 
@@ -48,11 +53,8 @@ class TelloKt {
     @Throws(IOException::class)
     fun rotateCounterClockwise(x: Int) = rotate("ccw", x)
 
-    /**
-     * Flip x l = (left) r = (right) f = (forward) b = (back) bl = (back/left) rb = (back/right) fl = (front/left) fr = (front/right)
-     */
     @Throws(IOException::class)
-    fun flip(direction: String) = sendCommand("flip $direction")
+    fun flip(direction: FlipDirection) = sendCommand("flip ${direction.direction}")
 
     /**
      * Limit: 1-100 cm/s
@@ -63,13 +65,13 @@ class TelloKt {
     private fun getDistance(distance: Int) = if (!isImperial) distance else Math.round((distance * 2.54).toFloat())
 
     private fun move(command: String, distance: Int) =
-        if (distance in 20..500)
+        if (distance in movementRange)
             sendCommand("$command ${getDistance(distance)}")
         else
             "Command argument not in range!"
 
     private fun rotate(command: String, distance: Int) =
-        if (distance in 1..3600)
+        if (distance in rotationrange)
             sendCommand("$command $distance")
         else
             "Command argument not in range!"
@@ -94,4 +96,16 @@ class TelloKt {
         println("$strCommand: $ret")
         return ret
     }
+}
+
+enum class FlipDirection(val direction: String) {
+    LEFT("l"),
+    RIGHT("r"),
+    FORWARD("f"),
+    BACKWARD("b"),
+
+    BACK_LEFT("bl"),
+    BACK_RIGHT("rb"),
+    FRONT_LEFT("fl"),
+    FRONT_RIGHT("fr")
 }
