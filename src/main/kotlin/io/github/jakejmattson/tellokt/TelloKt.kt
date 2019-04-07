@@ -16,6 +16,18 @@ class TelloKt {
     val isConnected: Boolean
         get() = socket.isConnected
 
+    val battery: String
+        @Throws(IOException::class)
+        get() = sendCommand("battery?")
+
+    val speed: String
+        @Throws(IOException::class)
+        get() = sendCommand("speed?")
+
+    val time: String
+        @Throws(IOException::class)
+        get() = sendCommand("time?")
+
     @Throws(Exception::class)
     fun connect(ip: String = "192.168.10.1", port: Int = 8889) {
         socket = DatagramSocket(port)
