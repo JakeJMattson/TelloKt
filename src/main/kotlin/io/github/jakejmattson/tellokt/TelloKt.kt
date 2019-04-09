@@ -30,7 +30,7 @@ class TelloKt {
         @Throws(IOException::class)
         get() = sendCommand("time?")
 
-    @Throws(Exception::class)
+    @Throws(IOException::class)
     fun connect(ip: String = "192.168.10.1", port: Int = 8889) {
         socket = DatagramSocket(port)
         socket.connect(InetAddress.getByName(ip), port)
@@ -76,9 +76,13 @@ class TelloKt {
 
     private fun Int.toMetric() = if (!isImperial) this else Math.round((this * 2.54).toFloat())
 
+    @Throws(IOException::class)
     private fun move(command: String, distance: Int) = validateAndSend(command, distance.toMetric(), movementRange)
+
+    @Throws(IOException::class)
     private fun rotate(command: String, degrees: Int) = validateAndSend(command, degrees, rotationRange)
 
+    @Throws(IOException::class)
     private fun validateAndSend(command: String, targetValue: Int, range: IntRange) =
         if (targetValue in range) sendCommand("$command $targetValue") else "Command argument not in range!"
 
