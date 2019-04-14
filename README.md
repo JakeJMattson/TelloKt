@@ -2,6 +2,9 @@
   <a href="https://kotlinlang.org/">
     <img src="https://img.shields.io/badge/Kotlin-1.3.30-blue.svg" alt="Kotlin 1.3.30">
   </a>
+  <a href="https://GitHub.com/JakeJMattson/TelloKt/releases/">
+    <img src="https://img.shields.io/github/release/JakeJMattson/TelloKt.svg" alt="release">
+  </a>
   <a href="LICENSE.md">
     <img src="https://img.shields.io/github/license/JakeJMattson/TouchControl.svg" alt="license">
   </a>
