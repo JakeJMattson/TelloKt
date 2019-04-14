@@ -13,22 +13,23 @@ A Kotlin wrapper for the Tello SDK. This is a library allowing you to interface 
 ## Tello SDK
 This wrapper is currently compliant with [Tello SDK 1.0.0.0](https://dl-cdn.ryzerobotics.com/downloads/tello/0228/Tello+SDK+Readme.pdf)
 
-## Prerequisites
+## Download
 
-### Languages
-* [Kotlin](https://kotlinlang.org/)
+Maven:
+```xml
+<dependency>
+    <groupId>com.github.jakejmattson</groupId>
+    <artifactId>tellokt</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
 
-## Getting Started (Software)
-### Installing Java
-<p align="justify">
-Visit the <a href="https://jdk.java.net/11/">Java Downloads</a> page and select the version of your choice.
-Run the installer and follow the instructions provided.
-</p>
-
-### Building
-This project is built with Maven. To build the `pom.xml`, please follow the import instructions for your IDE.
-* [IntelliJ](https://www.tutorialspoint.com/maven/maven_intellij_idea.htm)
-* [Eclipse](https://www.tutorialspoint.com/maven/maven_eclispe_ide.htm)
+Gradle:
+```gradle
+dependencies {
+  implementation 'com.github.jakejmattson:tellokt:1.0.0'
+}
+```
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
