@@ -18,17 +18,45 @@ class TelloKt {
     val isConnected: Boolean
         get() = socket.isConnected
 
-    val battery: String
-        @Throws(IOException::class)
-        get() = sendCommand("battery?")
-
     val speed: String
         @Throws(IOException::class)
         get() = sendCommand("speed?")
 
+    val battery: String
+        @Throws(IOException::class)
+        get() = sendCommand("battery?")
+
     val time: String
         @Throws(IOException::class)
         get() = sendCommand("time?")
+
+    val height: String
+        @Throws(IOException::class)
+        get() = sendCommand("height?")
+
+    val temp: String
+        @Throws(IOException::class)
+        get() = sendCommand("temp?")
+
+    val attitude: String
+        @Throws(IOException::class)
+        get() = sendCommand("attitude?")
+
+    val baro: String
+        @Throws(IOException::class)
+        get() = sendCommand("baro?")
+
+    val acceleration: String
+        @Throws(IOException::class)
+        get() = sendCommand("acceleration?")
+
+    val tof: String
+        @Throws(IOException::class)
+        get() = sendCommand("tof?")
+
+    val wifi: String
+        @Throws(IOException::class)
+        get() = sendCommand("wifi?")
 
     @Throws(IOException::class)
     fun connect(ip: String = "192.168.10.1", port: Int = 8889) {
