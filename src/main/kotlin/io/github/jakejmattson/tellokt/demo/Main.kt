@@ -31,9 +31,16 @@ private fun main() {
         flip(FlipDirection.BACKWARD)
 
         //Demonstrate info commands
-        battery
-        speed
-        time
+        read(Info.SPEED)
+        read(Info.BATTERY)
+        read(Info.TIME)
+        read(Info.HEIGHT)
+        read(Info.TEMP)
+        read(Info.ATTITUDE)
+        read(Info.BARO)
+        read(Info.ACCELERATION)
+        read(Info.TOF)
+        read(Info.WIFI)
 
         //Conclude demo
         land()

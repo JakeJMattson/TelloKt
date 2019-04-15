@@ -35,9 +35,16 @@ public class Main {
             tello.flip(FlipDirection.BACKWARD);
 
             //Demonstrate info commands
-            tello.getBattery();
-            tello.getSpeed();
-            tello.getTime();
+            tello.read(Info.SPEED);
+            tello.read(Info.BATTERY);
+            tello.read(Info.TIME);
+            tello.read(Info.HEIGHT);
+            tello.read(Info.TEMP);
+            tello.read(Info.ATTITUDE);
+            tello.read(Info.BARO);
+            tello.read(Info.ACCELERATION);
+            tello.read(Info.TOF);
+            tello.read(Info.WIFI);
 
             //Conclude demo
             tello.land();

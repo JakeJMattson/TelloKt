@@ -1,9 +1,7 @@
 package io.github.jakejmattson.tellokt
 
 import java.io.IOException
-import java.net.DatagramPacket
-import java.net.DatagramSocket
-import java.net.InetAddress
+import java.net.*
 
 class TelloKt {
     companion object {
@@ -18,45 +16,8 @@ class TelloKt {
     val isConnected: Boolean
         get() = socket.isConnected
 
-    val speed: String
-        @Throws(IOException::class)
-        get() = sendCommand("speed?")
-
-    val battery: String
-        @Throws(IOException::class)
-        get() = sendCommand("battery?")
-
-    val time: String
-        @Throws(IOException::class)
-        get() = sendCommand("time?")
-
-    val height: String
-        @Throws(IOException::class)
-        get() = sendCommand("height?")
-
-    val temp: String
-        @Throws(IOException::class)
-        get() = sendCommand("temp?")
-
-    val attitude: String
-        @Throws(IOException::class)
-        get() = sendCommand("attitude?")
-
-    val baro: String
-        @Throws(IOException::class)
-        get() = sendCommand("baro?")
-
-    val acceleration: String
-        @Throws(IOException::class)
-        get() = sendCommand("acceleration?")
-
-    val tof: String
-        @Throws(IOException::class)
-        get() = sendCommand("tof?")
-
-    val wifi: String
-        @Throws(IOException::class)
-        get() = sendCommand("wifi?")
+    @Throws(IOException::class)
+    fun read(info: Info) = sendCommand(info.type)
 
     @Throws(IOException::class)
     fun connect(ip: String = "192.168.10.1", port: Int = 8889) {
@@ -64,6 +25,7 @@ class TelloKt {
         socket.connect(InetAddress.getByName(ip), port)
         sendCommand("command")
     }
+
     fun disconnect() = socket.close()
 
     @Throws(IOException::class)
@@ -131,6 +93,19 @@ class TelloKt {
         println("$command: $response")
         return response
     }
+}
+
+enum class Info(val type: String) {
+    SPEED("speed?"),
+    BATTERY("battery?"),
+    TIME("time?"),
+    HEIGHT("height?"),
+    TEMP("temp?"),
+    ATTITUDE("attitude?"),
+    BARO("baro?"),
+    ACCELERATION("acceleration?"),
+    TOF("tof?"),
+    WIFI("wifi?")
 }
 
 enum class FlipDirection(val direction: String) {
