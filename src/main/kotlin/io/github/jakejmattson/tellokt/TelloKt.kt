@@ -35,6 +35,15 @@ class TelloKt {
     fun land() = sendCommand("land")
 
     @Throws(IOException::class)
+    fun emergency() = sendCommand("emergency")
+
+    @Throws(IOException::class)
+    fun streamon() = sendCommand("streamon")
+
+    @Throws(IOException::class)
+    fun streamoff() = sendCommand("streamoff")
+
+    @Throws(IOException::class)
     fun moveLeft(x: Int) = move("left", x)
 
     @Throws(IOException::class)
