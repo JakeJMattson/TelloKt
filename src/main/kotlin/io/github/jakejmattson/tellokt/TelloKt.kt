@@ -8,6 +8,7 @@ class TelloKt {
         val movementRange = 20..500
         val rotationRange = 1..3600
         val speedRange = 1..100
+        val rcRange = -100..100
     }
 
     private lateinit var socket: DatagramSocket
@@ -72,6 +73,18 @@ class TelloKt {
 
     @Throws(IOException::class)
     fun setSpeed(speed: Int) = validateAndSend("speed", speed, speedRange)
+
+    @Throws(IOException::class)
+    fun setWifiSsidPass(ssid: String, pass: String) = sendCommand("wifi $ssid $pass")
+
+    @Throws(IOException::class)
+    fun sendRc(leftRight: Int, forwardBack: Int, upDown: Int, yaw: Int) =
+        when {
+            leftRight !in rcRange -> "Command argument not in range!"
+            forwardBack !in rcRange -> "Command argument not in range!"
+            upDown !in rcRange -> "Command argument not in range!"
+            else -> sendCommand("rc $leftRight $forwardBack $upDown $yaw")
+        }
 
     private fun Int.toMetric() = if (!isImperial) this else Math.round((this * 2.54).toFloat())
 
