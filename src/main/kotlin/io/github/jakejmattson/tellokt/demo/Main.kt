@@ -9,6 +9,7 @@ private fun main() {
         if (!isConnected) return
 
         //Begin demo
+        streamOn()
         takeOff()
 
         //Demonstrate movement commands
@@ -43,7 +44,8 @@ private fun main() {
         read(Info.WIFI)
 
         //Conclude demo
-        land()
+        streamOff()
+        land() //Use emergency() to stop immediately instead of landing
         disconnect()
     }
 }

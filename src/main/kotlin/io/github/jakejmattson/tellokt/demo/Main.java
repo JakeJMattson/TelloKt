@@ -13,6 +13,7 @@ public class Main {
             if (!tello.isConnected()) return;
 
             //Begin demo
+            tello.streamOn();
             tello.takeOff();
 
             //Demonstrate movement commands
@@ -47,7 +48,8 @@ public class Main {
             tello.read(Info.WIFI);
 
             //Conclude demo
-            tello.land();
+            tello.streamOff();
+            tello.land(); //Use emergency() to stop immediately instead of landing
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
