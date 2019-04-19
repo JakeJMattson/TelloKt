@@ -5,7 +5,7 @@ import java.net.*
 
 class TelloKt {
     companion object {
-        val movementRange = 20..500
+        val distanceRange = 20..500
         val rotationRange = 1..3600
         val speedRange = 1..100
         val rcRange = -100..100
@@ -72,7 +72,11 @@ class TelloKt {
     fun flip(direction: FlipDirection) = sendCommand("flip ${direction.direction}")
 
     @Throws(IOException::class)
-    fun setSpeed(speed: Int) = validateAndSend("speed", speed, speedRange)
+    fun setSpeed(speed: Int) =
+        if (speed.isValidSpeed())
+            sendCommand("speed $speed")
+        else
+            "Command argument not in range!"
 
     @Throws(IOException::class)
     fun setWifiSsidPass(ssid: String, pass: String) = sendCommand("wifi $ssid $pass")
@@ -80,23 +84,25 @@ class TelloKt {
     @Throws(IOException::class)
     fun sendRc(leftRight: Int, forwardBack: Int, upDown: Int, yaw: Int) =
         when {
-            leftRight !in rcRange -> "Command argument not in range!"
-            forwardBack !in rcRange -> "Command argument not in range!"
-            upDown !in rcRange -> "Command argument not in range!"
+            !leftRight.isValidRc() -> "Command argument not in range!"
+            !forwardBack.isValidRc() -> "Command argument not in range!"
+            !upDown.isValidRc() -> "Command argument not in range!"
             else -> sendCommand("rc $leftRight $forwardBack $upDown $yaw")
         }
 
-    private fun Int.toMetric() = if (!isImperial) this else Math.round((this * 2.54).toFloat())
+    @Throws(IOException::class)
+    private fun move(command: String, distance: Int) =
+        if (distance.toMetric().isValidDistance())
+            sendCommand("$command $distance")
+        else
+            "Command argument not in range!"
 
     @Throws(IOException::class)
-    private fun move(command: String, distance: Int) = validateAndSend(command, distance.toMetric(), movementRange)
-
-    @Throws(IOException::class)
-    private fun rotate(command: String, degrees: Int) = validateAndSend(command, degrees, rotationRange)
-
-    @Throws(IOException::class)
-    private fun validateAndSend(command: String, targetValue: Int, range: IntRange) =
-        if (targetValue in range) sendCommand("$command $targetValue") else "Command argument not in range!"
+    private fun rotate(command: String, degrees: Int) =
+        if (degrees.isValidRotation())
+            sendCommand("$command $degrees")
+        else
+            "Command argument not in range!"
 
     @Throws(IOException::class)
     fun sendCommand(command: String): String {
@@ -115,6 +121,12 @@ class TelloKt {
         println("$command: $response")
         return response
     }
+
+    private fun Int.isValidDistance() = this in distanceRange
+    private fun Int.isValidRotation() = this in rotationRange
+    private fun Int.isValidSpeed() = this in speedRange
+    private fun Int.isValidRc() = this in rcRange
+    private fun Int.toMetric() = if (!isImperial) this else Math.round((this * 2.54).toFloat())
 }
 
 enum class Info(val type: String) {
