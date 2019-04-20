@@ -9,6 +9,7 @@ class TelloKt {
         val rotationRange = 1..3600
         val speedRange = 1..100
         val rcRange = -100..100
+        var invalidArgString = "Command argument not in range!"
     }
 
     private lateinit var socket: DatagramSocket
@@ -73,10 +74,10 @@ class TelloKt {
 
     fun go(x: Int, y: Int, z: Int, speed: Int) =
         when {
-            !x.isValidDistance() -> "Command argument not in range!"
-            !y.isValidDistance() -> "Command argument not in range!"
-            !z.isValidDistance() -> "Command argument not in range!"
-            !speed.isValidSpeed() -> "Command argument not in range!"
+            !x.isValidDistance() -> invalidArgString
+            !y.isValidDistance() -> invalidArgString
+            !z.isValidDistance() -> invalidArgString
+            !speed.isValidSpeed() -> invalidArgString
             else -> sendCommand("go $x $y $z $speed")
         }
 
@@ -85,7 +86,7 @@ class TelloKt {
         if (speed.isValidSpeed())
             sendCommand("speed $speed")
         else
-            "Command argument not in range!"
+            invalidArgString
 
     @Throws(IOException::class)
     fun setWifiSsidPass(ssid: String, pass: String) = sendCommand("wifi $ssid $pass")
@@ -93,9 +94,9 @@ class TelloKt {
     @Throws(IOException::class)
     fun sendRc(leftRight: Int, forwardBack: Int, upDown: Int, yaw: Int) =
         when {
-            !leftRight.isValidRc() -> "Command argument not in range!"
-            !forwardBack.isValidRc() -> "Command argument not in range!"
-            !upDown.isValidRc() -> "Command argument not in range!"
+            !leftRight.isValidRc() -> invalidArgString
+            !forwardBack.isValidRc() -> invalidArgString
+            !upDown.isValidRc() -> invalidArgString
             else -> sendCommand("rc $leftRight $forwardBack $upDown $yaw")
         }
 
@@ -104,14 +105,14 @@ class TelloKt {
         if (distance.toMetric().isValidDistance())
             sendCommand("$command $distance")
         else
-            "Command argument not in range!"
+            invalidArgString
 
     @Throws(IOException::class)
     private fun rotate(command: String, degrees: Int) =
         if (degrees.isValidRotation())
             sendCommand("$command $degrees")
         else
-            "Command argument not in range!"
+            invalidArgString
 
     @Throws(IOException::class)
     fun sendCommand(command: String): String {
