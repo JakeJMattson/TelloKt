@@ -71,6 +71,15 @@ class TelloKt {
     @Throws(IOException::class)
     fun flip(direction: FlipDirection) = sendCommand("flip ${direction.direction}")
 
+    fun go(x: Int, y: Int, z: Int, speed: Int) =
+        when {
+            !x.isValidDistance() -> "Command argument not in range!"
+            !y.isValidDistance() -> "Command argument not in range!"
+            !z.isValidDistance() -> "Command argument not in range!"
+            !speed.isValidSpeed() -> "Command argument not in range!"
+            else -> sendCommand("go $x $y $z $speed")
+        }
+
     @Throws(IOException::class)
     fun setSpeed(speed: Int) =
         if (speed.isValidSpeed())
