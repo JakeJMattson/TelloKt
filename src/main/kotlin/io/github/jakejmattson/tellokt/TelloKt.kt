@@ -81,6 +81,18 @@ class TelloKt {
             else -> sendCommand("go $x $y $z $speed")
         }
 
+    fun curve(x1: Int, x2: Int, y1: Int, y2: Int, z1: Int, z2: Int, speed: Int) =
+        when {
+            !x1.isValidDistance() -> invalidArgString
+            !x2.isValidDistance() -> invalidArgString
+            !y1.isValidDistance() -> invalidArgString
+            !y2.isValidDistance() -> invalidArgString
+            !z1.isValidDistance() -> invalidArgString
+            !z2.isValidDistance() -> invalidArgString
+            speed !in 10..60 -> invalidArgString
+            else -> sendCommand("curve $x1 $y1 $z1 $x2 $y2 $z2 $speed")
+        }
+
     @Throws(IOException::class)
     fun setSpeed(speed: Int) =
         if (speed.isValidSpeed())
