@@ -2,7 +2,6 @@ package io.github.jakejmattson.tellokt
 
 import java.io.IOException
 import java.net.*
-import java.util.Collections.rotate
 
 class TelloKt {
     companion object {
@@ -74,25 +73,17 @@ class TelloKt {
     fun flip(direction: FlipDirection) = sendCommand("flip ${direction.direction}")
 
     fun go(x: Int, y: Int, z: Int, speed: Int) =
+        if (arrayListOf(x, y, z).isValidDistance())
+            sendCommand("go $x $y $z $speed")
+        else
+            invalidArgString
+
+    fun curve(x1: Int, x2: Int, y1: Int, y2: Int, z1: Int, z2: Int, speed: Int) =
         when {
-            !x.isValidDistance() -> invalidArgString
-            !y.isValidDistance() -> invalidArgString
-            !z.isValidDistance() -> invalidArgString
-            !speed.isValidSpeed() -> invalidArgString
-            else -> sendCommand("go $x $y $z $speed")
+            !arrayListOf(x1, x2, y1, y2, z1, z2).isValidDistance() -> invalidArgString
+            speed !in 10..60 -> invalidArgString
+            else -> sendCommand("curve $x1 $y1 $z1 $x2 $y2 $z2 $speed")
         }
-
-    fun curve(x1: Int, x2: Int, y1: Int, y2: Int, z1: Int, z2: Int, speed: Int): String {
-        arrayListOf(x1, x2, y1, y2, z1, z2).forEach {
-            if (!it.isValidDistance())
-                return invalidArgString
-        }
-
-        if (speed !in 10..60)
-            return invalidArgString
-
-        return sendCommand("curve $x1 $y1 $z1 $x2 $y2 $z2 $speed")
-    }
 
     @Throws(IOException::class)
     fun setSpeed(speed: Int) =
@@ -107,15 +98,13 @@ class TelloKt {
     @Throws(IOException::class)
     fun sendRc(leftRight: Int, forwardBack: Int, upDown: Int, yaw: Int) =
         when {
-            !leftRight.isValidRc() -> invalidArgString
-            !forwardBack.isValidRc() -> invalidArgString
-            !upDown.isValidRc() -> invalidArgString
+            !arrayListOf(leftRight, forwardBack, upDown).isValidRc() -> invalidArgString
             else -> sendCommand("rc $leftRight $forwardBack $upDown $yaw")
         }
 
     @Throws(IOException::class)
     private fun move(command: String, distance: Int) =
-        if (distance.toMetric().isValidDistance())
+        if (distance.isValidDistance())
             sendCommand("$command $distance")
         else
             invalidArgString
@@ -145,11 +134,13 @@ class TelloKt {
         return response
     }
 
-    private fun Int.isValidDistance() = this in distanceRange
+    private fun Int.toMetric() = if (!isImperial) this else Math.round((this * 2.54).toFloat())
+    private fun Int.isValidDistance() = this.toMetric() in distanceRange
     private fun Int.isValidRotation() = this in rotationRange
     private fun Int.isValidSpeed() = this in speedRange
     private fun Int.isValidRc() = this in rcRange
-    private fun Int.toMetric() = if (!isImperial) this else Math.round((this * 2.54).toFloat())
+    private fun ArrayList<Int>.isValidDistance() = this.all { it.isValidDistance() }
+    private fun ArrayList<Int>.isValidRc() = this.all { it.isValidRc() }
 }
 
 enum class Info(val type: String) {
