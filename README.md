@@ -3,15 +3,15 @@
     <img src="https://img.shields.io/badge/Kotlin-1.3.30-blue.svg" alt="Kotlin 1.3.30">
   </a>
   <a href="https://GitHub.com/JakeJMattson/TelloKt/releases/">
-    <img src="https://img.shields.io/github/release/JakeJMattson/TelloKt.svg" alt="release">
+    <img src="https://img.shields.io/github/release/JakeJMattson/TelloKt.svg" alt="Release">
   </a>
   <a href="LICENSE.md">
-    <img src="https://img.shields.io/github/license/JakeJMattson/TouchControl.svg" alt="license">
+    <img src="https://img.shields.io/github/license/JakeJMattson/TouchControl.svg" alt="License">
   </a>
 </p>
 
 # TelloKt
-A Kotlin wrapper for the Tello SDK. This is a library allowing you to interface with a Tello drone.
+A Kotlin wrapper for the Tello SDK. This is a library allowing you to interface with a Tello drone without having to manually sending the packets yourself.
 
 ## Tello SDK
 This wrapper is currently compliant with [Tello SDK 1.0.0.0](https://dl-cdn.ryzerobotics.com/downloads/tello/0228/Tello+SDK+Readme.pdf)
