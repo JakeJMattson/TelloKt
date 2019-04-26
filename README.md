@@ -11,10 +11,10 @@
 </p>
 
 # TelloKt
-A Kotlin wrapper for the Tello SDK. This is a library allowing you to interface with a Tello drone without having to manually sending the packets yourself.
+A Kotlin wrapper for the Tello SDK allowing you to interface with a Tello drone from a Kotlin or Java project. This library allows you to avoid the tedious work of manually sending the packets yourself and lets you focus on making the drone do what you want.
 
 ## Tello SDK
-This wrapper is currently compliant with [Tello SDK 1.0.0.0](https://dl-cdn.ryzerobotics.com/downloads/tello/0228/Tello+SDK+Readme.pdf)
+This wrapper is currently compliant with [Tello SDK 1.3.0.0](https://dl-cdn.ryzerobotics.com/downloads/tello/20180910/Tello%20SDK%20Documentation%20EN_1.3.pdf)
 
 ## Download
 
@@ -23,14 +23,14 @@ Maven:
 <dependency>
     <groupId>com.github.jakejmattson</groupId>
     <artifactId>tellokt</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
 Gradle:
 ```gradle
 dependencies {
-  implementation 'com.github.jakejmattson:tellokt:1.0.0'
+  implementation 'com.github.jakejmattson:tellokt:1.1.0'
 }
 ```
 
