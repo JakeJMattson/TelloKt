@@ -3,7 +3,7 @@ package io.github.jakejmattson.tellokt
 import java.io.IOException
 import java.net.*
 
-class TelloKt {
+class Tello {
     companion object {
         val distanceRange = 20..500
         val rotationRange = 1..3600

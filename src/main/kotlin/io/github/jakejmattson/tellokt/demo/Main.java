@@ -5,7 +5,7 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-        TelloKt tello = new TelloKt();
+        Tello tello = new Tello();
 
         try {
             //Attempt to connect to Tello

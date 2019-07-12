@@ -1,7 +1,7 @@
 import io.github.jakejmattson.tellokt.*
 
 private fun main() {
-    val tello = TelloKt()
+    val tello = Tello()
 
     with(tello) {
         //Attempt to connect to Tello
