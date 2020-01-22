@@ -1,6 +1,8 @@
-package io.github.jakejmattson.tellokt.demo;
+package me.jakejmattson.tellokt.demo;
 
 import io.github.jakejmattson.tellokt.*;
+import me.jakejmattson.tellokt.*;
+
 import java.io.*;
 
 public class Main {

@@ -1,4 +1,4 @@
-package io.github.jakejmattson.tellokt
+package me.jakejmattson.tellokt
 
 import java.io.IOException
 import java.net.*

@@ -1,4 +1,4 @@
-import io.github.jakejmattson.tellokt.*
+import me.jakejmattson.tellokt.*
 
 private fun main() {
     val tello = Tello()
