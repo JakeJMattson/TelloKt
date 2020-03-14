@@ -1,6 +1,5 @@
 package me.jakejmattson.tellokt.demo;
 
-import io.github.jakejmattson.tellokt.*;
 import me.jakejmattson.tellokt.*;
 
 import java.io.*;
