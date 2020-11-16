@@ -13,12 +13,12 @@ A Kotlin wrapper for the Tello SDK allowing you to interface with a Tello drone 
 ### Gradle
 ```kotlin
 dependencies {
-    implementation("me.jakejmattson:TelloKt:1.1.0")
+    implementation("me.jakejmattson:TelloKt:1.2.0")
 }
 ```
 ```groovy
 dependencies {
-    implementation 'me.jakejmattson:TelloKt:1.1.0'
+    implementation 'me.jakejmattson:TelloKt:1.2.0'
 }
 ```
 
@@ -27,6 +27,6 @@ dependencies {
 <dependency>
     <groupId>me.jakejmattson</groupId>
     <artifactId>TelloKt</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 </dependency>
 ```

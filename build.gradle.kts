@@ -1,5 +1,5 @@
 group = "me.jakejmattson"
-version = "1.1.0"
+version = "1.2.0"
 
 plugins {
     //Core
