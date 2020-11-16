@@ -3,16 +3,12 @@ version = "1.1.0"
 description = "TelloKt"
 
 plugins {
-    kotlin("jvm") version "1.3.70"
+    kotlin("jvm") version "1.4.10"
 }
 
 repositories {
     mavenCentral()
     maven("https://jitpack.io")
-}
-
-dependencies {
-    implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks.compileKotlin {
